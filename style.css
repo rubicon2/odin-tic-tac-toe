@@ -1,5 +1,6 @@
 :root {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 *, *::before, *::after {
@@ -14,3 +15,29 @@ p {
     padding: 0;
 }
 
+body {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.board {
+    border: 10px solid black;
+    border-radius: 25px;
+    width: 500px;
+    height: 500px;
+
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+
+    overflow: hidden;
+
+    font-weight: 900;
+    font-size: 6rem;
+}
+
+.board-cell {
+    outline: 5px solid black;
+    display: grid;
+    place-items: center;
+}
