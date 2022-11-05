@@ -40,4 +40,5 @@ body {
     outline: 5px solid black;
     display: grid;
     place-items: center;
+    user-select: none;
 }
