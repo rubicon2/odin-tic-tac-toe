@@ -7,16 +7,27 @@
         <script src="script.js" defer></script>
     </head>
     <body>
-        <div class="board">
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
-            <div class="board-cell" data-value=""></div>
+        <span id="game-info" class="disabled-button">START GAME</span>
+        <div class="game-area">
+            <div class="player-one-info">
+                <h2>Player One Name:</h2>
+                <input type="text" name="player-one-name" id="player-one-name">
+            </div>
+            <div class="board">
+                <div class="board-cell" data-value="" data-cell="0"></div>
+                <div class="board-cell" data-value="" data-cell="1"></div>
+                <div class="board-cell" data-value="" data-cell="2"></div>
+                <div class="board-cell" data-value="" data-cell="3"></div>
+                <div class="board-cell" data-value="" data-cell="4"></div>
+                <div class="board-cell" data-value="" data-cell="5"></div>
+                <div class="board-cell" data-value="" data-cell="6"></div>
+                <div class="board-cell" data-value="" data-cell="7"></div>
+                <div class="board-cell" data-value="" data-cell="8"></div>
+            </div>
+            <div class="player-two-info">
+                <h2>Player Two Name:</h2>
+                <input type="text" name="player-two-name" id="player-two-name">
+            </div>
         </div>
     </body>
 </html>

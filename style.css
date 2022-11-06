@@ -3,6 +3,16 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+input[type="text"] {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+
+    padding: 0.5rem;
+
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 25px;
+}
+
 *, *::before, *::after {
     box-sizing: inherit;
 }
@@ -18,7 +28,32 @@ p {
 body {
     height: 100vh;
     display: grid;
-    place-items: center;
+    justify-items: center;
+    gap: 1rem;
+}
+
+#game-info {
+    margin-top: auto;
+    font-size: 2rem;
+    font-weight: 900;
+    user-select: none;
+}
+
+.disabled-button {
+    color: grey;
+}
+
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+.player-one-info,
+.player-two-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .board {
