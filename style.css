@@ -39,6 +39,10 @@ body {
     user-select: none;
 }
 
+.invisible {
+    opacity: 0;
+}
+
 .disabled-button {
     color: grey;
 }
