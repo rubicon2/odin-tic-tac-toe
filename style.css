@@ -57,7 +57,15 @@ body {
 .player-two-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0.5rem;
+}
+
+.player-info-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .board {

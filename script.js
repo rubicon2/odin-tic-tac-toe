@@ -2,10 +2,12 @@ const boardCells = document.querySelectorAll(".board-cell");
 const gameInfo = document.querySelector("#game-info");
 const playerOneName = document.querySelector("#player-one-name");
 const playerTwoName = document.querySelector("#player-two-name");
+const playerTwoAISelect = document.querySelector("#player-two-is-ai");
 
 const game = (function() {
 
     let isPlayerOneTurn = true;
+    let isPlayerTwoAI = true;
     let isGameOver = true;
     let playerNamesEntered = false;
 
@@ -25,14 +27,15 @@ const game = (function() {
                 displayController.cellClickHandler(e);
             });
         }
-    }
+    };
     
     const initialiseGame = function() {
         game.isGameOver = false;
         game.isPlayerOneTurn = true;
         displayController.hideGameInfo();
         game.initialiseBoard();
-    }
+    };
+
     const checkGameOver = function() {
         // Player wins if the following are the same...
         let b = game.board;
@@ -59,10 +62,29 @@ const game = (function() {
         // gameInfo.classList.remove("invisible");
         // gameInfo.innerText = `${winnerName.toUpperCase()} WINS! PLAY AGAIN?`;
         displayController.displayGameInfo(`${winnerName.toUpperCase()} WINS! PLAY AGAIN?`);
-    }
+    };
+
+    // const makeAIMove = function() {
+    //     setTimeout(function() {
+    //     // Only player 2 can be AI so programming assuming this condition is true. 
+    //     let availableCells = Array.from(boardCells).filter(getEmptyCells);
+    //     console.log(availableCells);
+
+    //     function getEmptyCells(cell) {
+    //         return cell.innerText === "";
+    //     }
+
+    //     let randomCellIndex = Math.floor(Math.random() * availableCells.length);
+    //     // game.board[availableCells[randomCellIndex].dataset.cell] = "O";
+    //     availableCells[randomCellIndex].innerText = "O";
+
+    //     game.isPlayerOneTurn = true;
+    //     }, Math.random() * 2000);
+    // }
 
     return {
         isPlayerOneTurn: isPlayerOneTurn,
+        isPlayerTwoAI: isPlayerTwoAI,
         isGameOver: isGameOver,
         playerNamesEntered: playerNamesEntered,
         width: width,
@@ -88,17 +110,41 @@ const displayController = (function() {
     }
 
     const cellClickHandler = function(e) {
-        if (!game.isGameOver && e.currentTarget.innerText === "") {
-            let nextMove = "";
-            if (game.isPlayerOneTurn) {
-                nextMove = "X";
-            } else {
-                nextMove = "O";
-            }
-            e.currentTarget.innerText = nextMove;
-            game.board[e.currentTarget.dataset.cell] = nextMove;
+
+        function makeMove(element, move) {
+            element.innerText = move;
+            game.board[element.dataset.cell] = move;
             game.checkGameOver();
             game.isPlayerOneTurn = !game.isPlayerOneTurn;
+
+            if (!game.isGameOver && !game.isPlayerOneTurn && game.isPlayerTwoAI)
+                makeAIMove();
+        }
+
+        const makeAIMove = function() {
+            setTimeout(function() {
+            // Only player 2 can be AI so programming assuming this condition is true. 
+            let availableCells = Array.from(boardCells).filter(getEmptyCells);
+    
+            function getEmptyCells(cell) {
+                return cell.innerText === "";
+            }
+    
+            let randomCellIndex = Math.floor(Math.random() * availableCells.length);
+            // availableCells[randomCellIndex].innerText = "O";
+
+            makeMove(availableCells[randomCellIndex], "O");
+    
+            // game.isPlayerOneTurn = true;
+            }, Math.random() * 2000);
+        }
+
+        if (!game.isGameOver && e.currentTarget.innerText === "") {
+            if (game.isPlayerOneTurn) {
+                makeMove(e.currentTarget, "X");
+            } else if (!game.isPlayerTwoAI) {
+                makeMove(e.currentTarget, "O");
+            }
         }
     };
     
@@ -135,6 +181,10 @@ playerOneName.addEventListener("input", function(e) {
 playerTwoName.addEventListener("input", function(e) {
     displayController.checkNamesEntered();
 });
+
+playerTwoAISelect.addEventListener("input", function(e) {
+    game.isPlayerTwoAI = playerTwoAISelect.checked;
+})
 
 gameInfo.addEventListener("click", function(e) {
     if (game.isGameOver && game.playerNamesEntered)
